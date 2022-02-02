@@ -12,7 +12,7 @@
 
 # Remarks
 
-### SpaceODY - This version of KOS-ReEntry for Space Shuttle System seems to be more successful (At least in my case) for re entry with my version of the mod. This is an older version of the re entry so some features with the newer one are not available. I just find more success with this older one I downloaded in July of 2021.
+### SpaceODY - This version of KOS-ReEntry from giuliodondi for Space Shuttle System seems to be more successful (At least in my case) for re entry with my version of the mod. This is an older version of the re entry so some features with the newer one are not available. I just find more success with this older one I downloaded in July of 2021.
 
 These scripts have been tested in Kerbal Space Program 1.8.1 and 1.9.1.
 They are designed to do one single thing: to provide deorbit and reentry guidance for the Space Shuttle System in RSS/Realism Overhaul. Only DECQ's Shuttle is supported at the moment. 
