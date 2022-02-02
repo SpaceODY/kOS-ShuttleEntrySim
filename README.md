@@ -11,22 +11,21 @@
 # Remarks
 
 These scripts have been tested in Kerbal Space Program 1.8.1 and 1.9.1.
-They are designed to do one single thing: to provide deorbit and reentry guidance for the Space Shuttle System in RSS/Realism Overhaul.
-The script was originally engineered for DECQ's Shuttle. Support was added for different spacecraft by means of configuration files in the **Scripts/Shuttle_entrysim/VESSELS** directory.
+They are designed to do one single thing: to provide deorbit and reentry guidance for the Space Shuttle System in RSS/Realism Overhaul. Only DECQ's Shuttle is supported at the moment. 
 
-The scripts are not calibrated to work in stock KSP or with anything other than Space Shuttle-like vehicles.
-I'm positive they can be modified accordingly but it's not a trivial task. I do not play stock KSP and do not plan on ever releasing a version of these scripts for it. 
+The scripts are not calibrated to work in stock KSP or with anything other than the Space Shuttle.
+I'm sure they can be modified accordingly but it's not a trivial task. I do not play stock KSP and do not plan on ever releasing a version of these scripts for it. 
 
 This code is provided as is, please keep in mind I am not a professional programmer nor an experienced mod maker. The script has most likely has several bugs within that I didn't discover with enough testing, and is certainly not the most efficient way to implement this kind of functionality. 
 
-I encourage bug reports or improvement suggestions, although I make no promise to act on them promptly or ever.
+I will welcome bug reports or improvement suggestions, although I make no promise to act on them promptly or ever.
 I will not be available around the clock to help you get it working, I do not have the time unfortunately.
 If you decide to modify the code yourself you do so 100% on your own.
 
 # Installation
 
 **Required mods:**
-- A complete install of RSS/Realism Overhaul with Ferram Aerospace Resarch. Confrmed to work with FAR 0.16.0.1, should now also work with 0.16.0.4
+- A complete install of RSS/Realism Overhaul with Ferram Aerospace Resarch. INCOMPATIBLE WITH FAR 0.16.0.2, use 0.16.0.1 or below.
 - Kerbal Operating System
 - DECQ's Space Shuttle System mod, this fork seems to be the most up-to-date : https://github.com/DylanSemrau/Space-Shuttle-System
 - RO configs that come with the Realism Overhaul package
@@ -55,7 +54,8 @@ In particular, you will run two scripts:
 
 # Setup
 
-## Setting up the Space Shuttle in the VAB
+## Setting up the Space Shuttle
+
 
 **IMPORTANT**  
 These scripts are not magic and rely on the Shuttle being easy to control. I can give you hints on what to look out for but ultimately it will be
@@ -76,23 +76,17 @@ They must be Stock A.I.R.B.R.A.K.E.S. and nothing else, otherwise you will need 
 Place them either on the sides of the OMS pods or on the sides of the Engine block. Place them on the surface, do not tuck them inside or KSP will prevent them from deploying. Do not put them on the tail or on the wings or you will introduce a pitching moment.
 Make sure to add these A.I.R.B.R.A.K.E.S. to the brakes Action Group.
 
-## Setting up the script config files and runways
+## Setting up the rest
 
-The folder **Scripts/Shuttle_entrysim/VESSELS** contains the different vehicle config files. By default I provide the **DECQ_Shuttle** folder with the files that I use.  
-There are three vehicle config files:
-- **gains.ks** which I do not advise touching unless you know what you are doing.
-- **pitch_profile.ks** which specifies the pitch versus surface velocity points that the Entry Guidance will follow. The profile I provide you with is taken directly from early Shuttle technical
-documents, therefore it as designed to respect the Shuttle's thermal limits. In KSP this is _not really_ crucial, so if you want some extra range you can bring it down to 35°.
-Bear in mind that you will be able to adjust the initial pitch value in flight, more about that later.
-- **flapcontrol.ks** which specifies which parts allow for flap control and the angle ranges of motion of each. Here you specify the names of your elevon and body flap parts. The file provided is already good for DECQ shuttle so leave it alone.
-
-In the main folder **Scripts/Shuttle_entrysim** you will see more configuration files. The only one you should pay attention to is **landing_sites.ks**. This contains the definition of the Runways available for targeting by the scripts.
+In the folder **Scripts/Shuttle_entrysim_parameters** you will see a file **landing_sites.ks**. This contains the definition of the Runways available for targeting by the scripts.
 
 You must create the runways wherever you like on Earth using Kerbal Konstructs. You must then write down the coordinates of its halfway point, its length, elevation and heading
 and fill in the details in the **landing_sites.ks** folloring the formatting inside. Don't forget the name of the landing site, also.
 I provide you with my own landing sites definitions for reference, but I strongly suggest you replace the details with your own measured data for better accuracy.
 
-
+The file **pitch_profile.ks** specifies the pitch versus surface velocity points that the Entry Guidance will follow. The profile I provide you with is taken directly from the Shuttle technical
+documents, remember the Real shuttle had to keep a 38° high angle of attack for thermal control. In KSP we don't _really_ need that, so if you want some extra range you can bring it down to 35°.
+Bear in mind that you will be able to adjust the initial pitch value in flight, more about that later.
 
 # How to use
 
@@ -126,8 +120,6 @@ It's not a stupid idea to eyeball it using Google Earth in a separate window. If
 Make sure not to have more than about 4 tons or 180 m/s deltaV worth of OMS propellant before the deorbit burn.
 
 One orbit before your desired landing pass, create a manoeuvre node and adjust it so your periapsis is about 20km high and about 1000km after the landing site.
-The program will still display deorbit predictions even if there is no manoeuvre node, as long as your current trajectory brings you deep into the atmosphere.
-
 Then, run **deorbit.ks**. In the GUI window that opens select immediately your desired landing site from the list.
 This script extrapolates the conic trajectory from the manoeuvre node to the **Entry Interface** point, where you cross the 122km altitude line. It displays several pieces of data about your
 predicted state at entry interface. From there, it simulates the reentry trajectory using the Guidance algorithm and the specified profiles, drawing the trajectory in the Map view and displaying 
@@ -194,29 +186,19 @@ Do not switch to approach until you're below 25 km and ~30 km from the target, f
 - if you disconnect far away from the site you will most likely not fly the pitch-roll profile exactly and thus the range calculatons are meaningless
 - when transitioning between entry and approach guidance, the script calculates which landing site you're closest to and locks it . If you transition far away you might be closest to a different landing site than the one you planned.
 
-The first thing is to set up the guidance profile.
-Using the buttons up at the top, choose a combination runway/HAC side based on your inbound heading and how far you are from the actual runway. 
+
+Using the buttons, up at the top, choose a combination runway/HAC side based on your inbound heading and how far you are from the actual runway. 
 To simulate a real Shuttle approach you should fly over the runway and turn around a HAC on the opposide side of where you came from.
 If you're low on energy pick the runway and HAC side nearest to you to reduce the distance to be travelled.
 
 Keep in mind that the approach path is completely dumb and oblivious to your energy state, contrary to the real Space Shuttle Guidance. 
 
-The approach GUI will create an undocked HUD thta you can drag wherever you like. Here is a screenshot with labels describing the features:  
-
-![hud_example](https://github.com/giuliodondi/kOS-ShuttleEntrySim/blob/master/hud_example.png)
-
-The program will simulate the Shuttle a couple seconds in the future and measure the deviations from the guidance profile. The diamond-shaped pipper displays this deviation in a way that suggests where the nose should be pointed to correct the error.
-Your focus should be on following the pipper diamond around with gentle commands. The pipper will guide you through several approach phases that align the Shuttle with the runway and settle it on the proper glideslope for landing.
-
 Speedbrakes are controlled either manually using the throttle slider or automatically by the script. A button lets you switch between the modes.
 Leave them on manual and closed until you are stabilised on the descent profile and the pipper is mostly centered, you don't want to waste energy until you are sure 
 you have plenty to spare.
 
-You can (and should) use some pitch trim to help you during approach. The elevons and body flap will deflect according to the pitch trim setting, you will only need a little.
-
 Needless to say, to fly the shuttle manually it's best to use a flight stick or, at the very least, some kind of gaming controller. 
-Even so, following the pipper around the HAC is hard. The pipper is sensitive to control surface deflections and will jitter around if you're hard on the control inputs, that's why you need to be gentle and trim your controls.
-The pipper doesn't need to be very centered but it should not escape beyond the GUI window. It is especially important to be on profile 
+Even so, following the pipper around the HAC is hard. It doesn't need to be very centered but it should not escape beyond the GUI window. It is especially important to be on profile 
 near the end of the HAC turn since during the final descent on glideslope there is not much time to get back on profile. It takes practice.
 
 
