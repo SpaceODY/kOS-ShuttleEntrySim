@@ -30,8 +30,10 @@ If you decide to modify the code yourself you do so 100% on your own.
 
 **Required mods:**
 - A complete install of RSS/Realism Overhaul with Ferram Aerospace Resarch. INCOMPATIBLE WITH FAR 0.16.0.2, use 0.16.0.1 or below.
+### SpaceODY - I currently use it on FAR 16.0.4 and it seems to work fine.
 - Kerbal Operating System
 - DECQ's Space Shuttle System mod, this fork seems to be the most up-to-date : https://github.com/DylanSemrau/Space-Shuttle-System
+### SpaceODY - I would suggest using my version instead under my github repo.
 - RO configs that come with the Realism Overhaul package
 
 **NOTE:** the RO configs should have FAR definitions for wing surfaces. The script may still work with other configs that do not define explicitly the FAR parameters, but the aerodynamic behaviour is going to be different and thus the guidance scheme needs some adaptations.
@@ -72,6 +74,11 @@ In the VAB adjust the FAR control surface mappings like this:
 - The tail control surface should have +100% yaw authority and +50% roll authority, 23 deflection and the rest to zero. Flap and Spoiler disabled.
 - The elevons should have +100% pitch authority, +60% roll authority, -25% AOA authority, 20 deflection and the rest to zero. Flaps enabled, spoilers disabled
 - The body flap must have zero authority on everything.  Flaps enabled, spoilers disabled.
+
+### SpaceODY - I have a different take on controls for the elevons and flaps:
+- Tail control = +100% Yaw and Roll, 0% Pitch, 20 deflection, everything else 0. Flap enabled, spoiler disabled.
+- Elevons = +100 Pitch and Roll, 0% Yaw, 20 deflection, everything else 0. Flap enabled, spoiler disabled.
+- Body Flap = +100% Pitch, 0% Yaw and Roll, 20 deflection, everything else 0. Flap enabled, spoiler disabled.
 
 Still in the VAB, enable all actuation toggles on the Crew Cabin and both OMS pods. This will give you full control on which RCS jets are active for which attitude direction.
 
@@ -182,6 +189,8 @@ Double check that the Body Flap and Elevon trim is actually working, or adjust t
 Yaw RCS should be left on until 30km and below mach 5, at which point the Shuttle should have pitched down below 20° and the rudder gains enough authority.
 
 ## Approach
+
+### SpaceODY - When the re entry guidance is no longer needed, I close the script and turn on Atmospheric Autopilot. Again, that is just what I do. You can do what giuliodondi says also.
 
 There is a button to switch to Approach guidance, you must disengage Guidance and SAS prior to switching.
 
